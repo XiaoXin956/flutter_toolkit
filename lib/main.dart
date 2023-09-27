@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_toolkit/base/top_context.dart';
 import 'package:flutter_toolkit/blocs/language/language_bloc.dart';
 import 'package:flutter_toolkit/blocs/language/language_event.dart';
 import 'package:flutter_toolkit/blocs/language/language_state.dart';
 import 'package:flutter_toolkit/generated/l10n.dart';
+import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/details_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
           ),
           home: BlocBuilder<LanguageBloc, LanguageState>(
             builder: (BuildContext context, LanguageState state) {
-              return MyHomePage(title: 'Flutter toolkit');
+              return HomePage(title: 'Flutter toolkit');
             },
           ),
           localizationsDelegates: const [
@@ -49,20 +51,23 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   void _incrementCounter() {}
 
   @override
   Widget build(BuildContext context) {
+
+    TopContext.setContext(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -85,10 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
             )),
 
             TextButton(onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                return DetailsPage();
-              }));
-            }, child: Text("${S.of(context).demo}")),
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return CxcHomePage();
+                  }));}, child: Text("cxc首页")),
 
           ],
         ),
