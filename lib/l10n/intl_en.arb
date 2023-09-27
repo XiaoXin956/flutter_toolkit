@@ -1,0 +1,7 @@
+{
+  "demo": "demo",
+  "state_manager": "state manager",
+  "language": "language",
+  "select_language": "select language",
+  "reload": "reload"
+}
