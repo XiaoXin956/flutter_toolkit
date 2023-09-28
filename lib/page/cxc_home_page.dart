@@ -65,19 +65,24 @@ class _CxcHomePageState extends State<CxcHomePage> {
                                 .asMap()
                                 .entries
                                 .map((e) => GestureDetector(
-                              onTap: (){
-                                addMenuData(e.value.title, null);
-                              },
-                              child: Container(
-                                color: Colors.blue,
-                                child: Row(children: [
-                                  Text(e.value.title),
-                                  GestureDetector(onTap: (){
-                                    removeData(e.key);
-                                  },child: Icon(Icons.close_rounded),),
-                                ],),
-                              ),
-                            ))
+                                      onTap: () {
+                                        addMenuData(e.value.title, null);
+                                      },
+                                      child: Container(
+                                        color: Colors.blue,
+                                        child: Row(
+                                          children: [
+                                            Text(e.value.title),
+                                            GestureDetector(
+                                              onTap: () {
+                                                removeData(e.key);
+                                              },
+                                              child: Icon(Icons.close_rounded),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ))
                                 .toList(),
                           ),
                         ),
@@ -85,9 +90,12 @@ class _CxcHomePageState extends State<CxcHomePage> {
                           flex: 8,
                           child: PageView(
                             controller: _pageController,
-                            children: topMenu.map((e) => Container(
-                              height: 200,child: e.child,
-                            )).toList(),
+                            children: topMenu
+                                .map((e) => Container(
+                                      height: 200,
+                                      child: e.child,
+                                    ))
+                                .toList(),
                           ),
                         )
                       ],
@@ -98,10 +106,9 @@ class _CxcHomePageState extends State<CxcHomePage> {
     );
   }
 
-
   addMenuData(String dataMenu, Widget? child) {
-    for(var i =0;i<topMenu.length;i++){
-      if(dataMenu == topMenu[i].title){
+    for (var i = 0; i < topMenu.length; i++) {
+      if (dataMenu == topMenu[i].title) {
         _pageController.jumpToPage(i);
         return;
       }
@@ -111,11 +118,9 @@ class _CxcHomePageState extends State<CxcHomePage> {
     _pageController.jumpToPage(topMenu.length);
   }
 
-  removeData(int dataMenuIndex){
+  removeData(int dataMenuIndex) {
     topMenu.removeAt(dataMenuIndex);
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   // 添加物流信息
@@ -152,5 +157,6 @@ class _CxcHomePageState extends State<CxcHomePage> {
 class MenuBean {
   String title;
   Widget child;
+
   MenuBean({required this.title, required this.child});
 }

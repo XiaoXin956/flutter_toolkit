@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class TextWidget extends StatefulWidget {
@@ -12,8 +10,6 @@ class TextWidget extends StatefulWidget {
 class _TextWidgetState extends State<TextWidget> {
   @override
   Widget build(BuildContext context) {
-
-
     return Text("");
   }
 }

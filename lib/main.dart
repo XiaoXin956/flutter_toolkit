@@ -7,6 +7,7 @@ import 'package:flutter_toolkit/blocs/language/language_event.dart';
 import 'package:flutter_toolkit/blocs/language/language_state.dart';
 import 'package:flutter_toolkit/generated/l10n.dart';
 import 'package:flutter_toolkit/page/cxc_home_page.dart';
+import 'package:flutter_toolkit/page/data_load_page.dart';
 import 'package:flutter_toolkit/page/details_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 
@@ -94,6 +95,12 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (BuildContext context) {
                     return CxcHomePage();
                   }));}, child: Text("cxc首页")),
+
+            TextButton(onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return DataLoadPage();
+                  }));}, child: Text("数据加载")),
 
           ],
         ),

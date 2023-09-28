@@ -14,13 +14,11 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
 
     });
     on<LanguageGetTypeEvent>((event, emit) {
-
       List<LanguageBean> languages = [
         LanguageBean(id: 1,local: "zh",language: "中文"),
         LanguageBean(id: 2,local: "en",language: "英文"),
       ];
       emit(LanguageTypeSuccessState(languages:languages));
-
     });
     on<LanguageSelectEvent>((event, emit) async {
       String locale = event.languageBean.local.toString();
