@@ -33,8 +33,9 @@ class DataLoadPage extends StatelessWidget {
               _easyRefreshController?.callRefresh();
             });
           } else if (state is DataLoadSuccessState) {
+            // 进行加载
+            data.addAll(state.dataSuccess);
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              // 进行加载
               _easyRefreshController?.finishRefresh();
               _easyRefreshController?.finishLoad();
             });
