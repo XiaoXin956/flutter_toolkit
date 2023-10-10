@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -60,6 +59,38 @@ class DioManager {
         data: data,
         queryParameters: queryParameters,
         options: options,
+      );
+      return response;
+    } on DioException catch (dioError) {
+      return dioError.response;
+    } on Error catch (error) {
+      return error;
+    }
+  }
+
+  /// post 请求，上传文件
+  ///
+  /// single 添加到 data 中
+  /// MultipartFile multipartFile =await MultipartFile.fromFile("filePath");
+  ///
+  /// Multiple 添加到 data 中
+  /// List<MultipartFile> fs = [await MultipartFile.fromFile("filePath")];
+  ///
+  Future<dynamic> post({
+    required String path,
+    Options? options,
+    dynamic data,
+    Function(int)? progress,
+    Function(int count, int total)? onSendProgress,
+    Function(int count, int total)? onReceiveProgress,
+  }) async {
+    try {
+      Response response = await _dio!.post(
+        path,
+        data: data,
+        options: options,
+        onSendProgress: (count, total) => onSendProgress,
+        onReceiveProgress: (count, total) => onReceiveProgress,
       );
       return response;
     } on DioException catch (dioError) {
