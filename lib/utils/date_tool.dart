@@ -1,7 +1,20 @@
+import 'package:flutter_toolkit/utils/print_utils.dart';
+
 class DateTool {
-  /// 年月日
+  /// 年月日时分秒
   static String getToDay() {
     DateTime currentTime = DateTime.now();
+    var month = (currentTime.month.toString().length == 1) ? "0${currentTime.month}" : currentTime.month;
+    var day = (currentTime.day.toString().length == 1) ? "0${currentTime.day}" : currentTime.day;
+    var hour = (currentTime.hour.toString().length == 1) ? "0${currentTime.hour}" : currentTime.hour;
+    var minute = (currentTime.minute.toString().length == 1) ? "0${currentTime.minute}" : currentTime.minute;
+    var second = (currentTime.second.toString().length == 1) ? "0${currentTime.second}" : currentTime.second;
+    return "${currentTime.year}-$month-$day $hour:$minute:$second";
+  }
+
+  /// 年月日
+  static String getYMDHMS({String? date}) {
+    DateTime currentTime = DateTime.parse(date.toString());
     var month = (currentTime.month.toString().length == 1) ? "0${currentTime.month}" : currentTime.month;
     var day = (currentTime.day.toString().length == 1) ? "0${currentTime.day}" : currentTime.day;
     var hour = (currentTime.hour.toString().length == 1) ? "0${currentTime.hour}" : currentTime.hour;
@@ -44,173 +57,181 @@ class DateTool {
   }
 
   // 生成时间日期数据
-  static List<DateBean> getCompleteData({String startDate = ""}) {
-    // 数据
-    List<DateBean> dateBeans = [];
-    // 第一天的日期
-    DateTime firstTime = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day).add(Duration(days: -90));
-    // 开始日期
-    DateTime startDateTime = (startDate != "") ? DateTime.parse(startDate) : DateTime(DateTime.now().year - 1, DateTime.now().month, DateTime.now().day);
-    // 结束日期
-    DateTime endDateTime = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-    while (startDateTime.millisecondsSinceEpoch < endDateTime.millisecondsSinceEpoch) {
-      // 月份
-      DateBean monthDateBean = DateBean();
-      monthDateBean.monthStr = "${startDateTime.year}-${startDateTime.month}"; // 年月
-      monthDateBean.itemType = DateBean.item_type_month;
-      dateBeans.add(monthDateBean);
-      addDatePlaceholder(dateBeans, 6, monthDateBean.monthStr.toString());
-      // 处理单个月的日期
-      DateTime currentLastTime = DateTime(
-        startDateTime.year,
-        startDateTime.month + 1,
-      );
-      currentLastTime = currentLastTime.subtract(Duration(days: 1));
-      // 获取当月的最后一天
-      while (startDateTime.millisecondsSinceEpoch <= currentLastTime.millisecondsSinceEpoch) {
-        // 第一个日期
-        if (startDateTime.millisecondsSinceEpoch == firstTime.millisecondsSinceEpoch) {
-          // 周几
-          switch (startDateTime.weekday) {
-            case 1:
-              //周日
-              break;
-            case 2:
-              //周一
-              addDatePlaceholder(dateBeans, 1, monthDateBean.monthStr.toString());
-              break;
-            case 3:
-              //周二
-              addDatePlaceholder(dateBeans, 2, monthDateBean.monthStr.toString());
-              break;
-            case 4:
-              //周三
-              addDatePlaceholder(dateBeans, 3, monthDateBean.monthStr.toString());
-              break;
-            case 5:
-              //周四
-              addDatePlaceholder(dateBeans, 4, monthDateBean.monthStr.toString());
-              break;
-            case 6:
-              addDatePlaceholder(dateBeans, 5, monthDateBean.monthStr.toString());
-              //周五
-              break;
-            case 7:
-              addDatePlaceholder(dateBeans, 6, monthDateBean.monthStr.toString());
-              //周六
-              break;
-          }
-        } else {
-          // 每个月的第一天
-          if (startDateTime.day == 1) {
-            switch (startDateTime.weekday) {
-              case 1:
-                //周日
-                break;
-              case 2:
-                //周一
-                addDatePlaceholder(dateBeans, 1, monthDateBean.monthStr.toString());
-                break;
-              case 3:
-                //周二
-                addDatePlaceholder(dateBeans, 2, monthDateBean.monthStr.toString());
-                break;
-              case 4:
-                //周三
-                addDatePlaceholder(dateBeans, 3, monthDateBean.monthStr.toString());
-                break;
-              case 5:
-                //周四
-                addDatePlaceholder(dateBeans, 4, monthDateBean.monthStr.toString());
-                break;
-              case 6:
-                addDatePlaceholder(dateBeans, 5, monthDateBean.monthStr.toString());
-                //周五
-                break;
-              case 7:
-                addDatePlaceholder(dateBeans, 6, monthDateBean.monthStr.toString());
-                //周六
-                break;
-            }
-          }
-        }
-        // 每天
-        DateBean dateBean = DateBean();
-        dateBean.dateTime = startDateTime;
-        dateBean.day = startDateTime.day.toString();
-        dateBean.monthStr = monthDateBean.monthStr;
-        dateBean.itemType = DateBean.item_type_day;
-        dateBeans.add(dateBean);
-        // 处理最后一天
-        if (startDateTime.millisecondsSinceEpoch == currentLastTime.millisecondsSinceEpoch) {
-          // 最后一天
-          //看某个月第一天是周几
-          var weekDay = startDateTime.weekday;
-          switch (weekDay) {
-            case 1:
-              //周日
-              addDatePlaceholder(dateBeans, 6, monthDateBean.monthStr.toString());
-              break;
-            case 2:
-              //周一
-              addDatePlaceholder(dateBeans, 5, monthDateBean.monthStr.toString());
-              break;
-            case 3:
-              //周二
-              addDatePlaceholder(dateBeans, 4, monthDateBean.monthStr.toString());
-              break;
-            case 4:
-              //周三
-              addDatePlaceholder(dateBeans, 3, monthDateBean.monthStr.toString());
-              break;
-            case 5:
-              //周四
-              addDatePlaceholder(dateBeans, 2, monthDateBean.monthStr.toString());
-              break;
-            case 6:
-              addDatePlaceholder(dateBeans, 1, monthDateBean.monthStr.toString());
-              //周5
-              break;
-          }
-        }
-        startDateTime = startDateTime.add(Duration(days: 1));
-      }
+  static List<DateBean> getCompleteData({String? startTime = "", String? endTime = "", int apartDay = 40}) {
+    List<DateBean> dateData = [];
+    DateTime startDate;
+    if (startTime != "") {
+      startDate = DateTime.parse(startTime.toString());
+    } else {
+      startDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day).subtract(Duration(days: apartDay));
     }
-    dateBeans.forEach((element) {
-      if (element.itemType == DateBean.item_type_month) {
-        print("月份------------:${element.monthStr.toString()}");
-      } else {
-        print("日期:${element.dateTime?.month.toString()}-${element.dateTime?.day.toString()}");
+    DateTime endDate;
+    if (endTime != "") {
+      endDate = DateTime.parse(endTime.toString());
+    } else {
+      endDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    }
+    // 开始日期和结束如期
+    printRed(
+        "开始日期 ${startDate.year}-${(startDate.month < 10) ? "0${startDate.month}" : startDate.month}-${(startDate.day < 10) ? "0${startDate.day}" : startDate.day}  结束如期${endDate.year}-${(endDate.month < 10) ? "0${endDate.month}" : endDate.month}-${(endDate.day < 10) ? "0${endDate.day}" : endDate.day} ");
+    startDate.add(Duration(days: 2));
+
+    bool isFirst = true;
+    // 遍历月的范围
+    while (startDate.isBefore(endDate)) {
+      // 月份数据
+      DateBean dateMonthBean = DateBean();
+      dateMonthBean.id =
+          "${startDate.year.toString()}${(startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}"}${(startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}"}";
+      dateMonthBean.month = (startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}";
+      dateMonthBean.day = (startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}";
+      dateMonthBean.itemType = DateType.month;
+      dateMonthBean.itemState = DateStatus.normal;
+      dateMonthBean.dateTime = startDate;
+      dateMonthBean.year = startDate.year.toString();
+      dateMonthBean.show = "${startDate.year.toString()}年";
+      dateData.add(dateMonthBean);
+      // 月份数据
+      DateBean dateMonthDayBean = DateBean();
+      dateMonthBean.id =
+          "${startDate.year.toString()}${(startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}"}${(startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}"}";
+      dateMonthDayBean.month = (startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}";
+      dateMonthDayBean.day = (startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}";
+      dateMonthDayBean.itemType = DateType.month;
+      dateMonthDayBean.itemState = DateStatus.normal;
+      dateMonthDayBean.dateTime = startDate;
+      dateMonthDayBean.year = startDate.year.toString();
+      dateMonthDayBean.show = (startDate.month < 10) ? "0${startDate.month}月" : "${startDate.month.toString()}月";
+      dateData.add(dateMonthDayBean);
+
+      _addDatePlaceholder(dateData, 5, "${startDate.year}${(startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}"}");
+
+      DateTime startMonthDate = startDate; // 当月的开始数据
+
+      DateTime endMonthDate = DateTime(startMonthDate.year, startMonthDate.month + 1, 1); // 月尾的结束数据
+      // 判断结束时间是否在当月内
+      if (startMonthDate.year == endDate.year && startMonthDate.month == endDate.month) {
+        endMonthDate = DateTime(endDate.year, endDate.month, endDate.day);
       }
-    });
-    return dateBeans;
+      // 遍历日数据
+      while (startMonthDate.isBefore(endMonthDate) || startMonthDate.isAtSameMomentAs(endDate)) {
+        int weekday = startMonthDate.weekday;
+        if (isFirst) {
+          isFirst = false;
+          // 获取时间点
+          weekday = startMonthDate.weekday;
+          _firstDatePlaceholder(dateData, weekday, "${startMonthDate.month > 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
+        } else {
+          // 判断是否为当月1号
+          if (startMonthDate.day == 1) {
+            weekday = startMonthDate.weekday;
+            _firstDatePlaceholder(dateData, weekday, "${startMonthDate.month > 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
+          }
+        }
+        DateBean dayDate = DateBean();
+        dayDate.id =
+            "${startMonthDate.year.toString()}${(startMonthDate.month < 10) ? "0${startMonthDate.month}" : "${startMonthDate.month.toString()}"}${(startMonthDate.day < 10) ? "0${startMonthDate.day}" : "${startMonthDate.day.toString()}"}";
+        dayDate.day = "${startMonthDate.day > 10 ? "0${startMonthDate.day}" : startMonthDate.day}";
+        dayDate.month = "${startMonthDate.month > 10 ? "0${startMonthDate.month}" : startMonthDate.month}";
+        dayDate.year = startMonthDate.year.toString();
+        dayDate.dateTime = startMonthDate;
+        dayDate.itemState = DateStatus.normal;
+        dayDate.itemType = DateType.day;
+        dayDate.show = (startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}";
+        dateData.add(dayDate);
+        printRed("今天是周 ${weekday}   开始日期 ${startMonthDate}    当月结束日期${endMonthDate}");
+        // 判断是否为当月的最后一天
+        DateTime nextDay = DateTime(startMonthDate.year, startMonthDate.month, startMonthDate.day + 1);
+        if (nextDay.month != startMonthDate.month) {
+          weekday = startMonthDate.weekday;
+          _lastDatePlaceholder(dateData, weekday, "${startMonthDate.month > 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
+        }
+        startMonthDate = DateTime(startMonthDate.year, startMonthDate.month, startMonthDate.day).add(Duration(days: 1));
+      }
+      startDate = DateTime(startDate.year, startDate.month + 1, 1);
+    }
+    // 遍历日的范围
+
+    return dateData;
   }
 
-  //添加空的日期占位
-  static void addDatePlaceholder(List<DateBean> dateBeans, int count, String monthStr) {
+  static void _firstDatePlaceholder(List<DateBean> dateBeans, int weekday, String monthStr) {
+    switch (weekday) {
+      case 1:
+        _addDatePlaceholder(dateBeans, 1, "${monthStr}");
+        break;
+      case 2:
+        _addDatePlaceholder(dateBeans, 2, "${monthStr}");
+        break;
+      case 3:
+        _addDatePlaceholder(dateBeans, 3, "${monthStr}");
+        break;
+      case 4:
+        _addDatePlaceholder(dateBeans, 4, "${monthStr}");
+        break;
+      case 5:
+        _addDatePlaceholder(dateBeans, 5, "${monthStr}");
+        break;
+      case 6:
+        _addDatePlaceholder(dateBeans, 6, "${monthStr}");
+        break;
+      case 7:
+        _addDatePlaceholder(dateBeans, 0, "${monthStr}");
+        break;
+    }
+  }
+
+  static void _lastDatePlaceholder(List<DateBean> dateBeans, int weekday, String monthStr) {
+    switch (weekday) {
+      case 1:
+        _addDatePlaceholder(dateBeans, 5, "${monthStr}");
+        break;
+      case 2:
+        _addDatePlaceholder(dateBeans, 4, "${monthStr}");
+        break;
+      case 3:
+        _addDatePlaceholder(dateBeans, 3, "${monthStr}");
+        break;
+      case 4:
+        _addDatePlaceholder(dateBeans, 2, "${monthStr}");
+        break;
+      case 5:
+        _addDatePlaceholder(dateBeans, 1, "${monthStr}");
+        break;
+      case 6:
+        _addDatePlaceholder(dateBeans, 0, "${monthStr}");
+        break;
+      case 7:
+        _addDatePlaceholder(dateBeans, 6, "${monthStr}");
+        break;
+    }
+  }
+
+  static void _addDatePlaceholder(List<DateBean> dateBeans, int count, String monthStr) {
+    printWhite("占位 ${count} 个");
     for (int i = 0; i < count; i++) {
       DateBean dateBean = DateBean();
-      dateBean.monthStr = "占位 ${monthStr}";
+      dateBean.id = "${monthStr}${i}";
+      dateBean.month = "${monthStr}";
+      dateBean.itemState = DateStatus.disabled; // 空白处禁用
       dateBeans.add(dateBean);
     }
   }
 }
 
 class DateBean {
-  //item类型
-  static int item_type_day = 1; //日期item
-  static int item_type_month = 2; //月份item
-
-  int itemType = 1; //默认是日期item
-  //item状态
-  static int ITEM_STATE_BEGIN_DATE = 1; //开始日期
-  static int ITEM_STATE_END_DATE = 2; //结束日期
-  static int ITEM_STATE_SELECTED = 3; //选中状态
-  static int ITEM_STATE_NORMAL = 4; //正常状态
-  static int ITEM_STATE_NO_CHECK = 5; //禁选状态
-  int itemState = ITEM_STATE_NORMAL;
-
+  DateType itemType = DateType.day; //默认是日期item
+  DateStatus itemState = DateStatus.normal; // 当天的日期状态
   DateTime? dateTime; //具体日期
   String? day; //一个月的某天
-  String? monthStr; //月份
+  String? month; //月份
+  String? year; //年
+  String? show; //显示的数据
+  String? id; // 日期id
 }
+
+// 日期状态
+enum DateStatus { check, disabled, normal, begin, end }
+
+// 日期类型
+enum DateType { day, month }
