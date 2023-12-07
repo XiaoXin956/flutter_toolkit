@@ -1,22 +1,23 @@
 
+
 import 'package:flutter/foundation.dart';
 
-printRed(String msg){
+printRed(dynamic msg){
   if (kDebugMode) {
     print("\x1B[31m ${msg} \x1B[0m");
   }
 }
-printBlue(String msg){
+printBlue(dynamic msg){
   if (kDebugMode) {
     print("\x1B[34m ${msg} \x1B[0m");
   }
 }
-printWhite(String msg){
+printWhite(dynamic msg){
   if (kDebugMode) {
     print("\x1B[37m ${msg} \x1B[0m");
   }
 }
-printPurple(String msg){
+printPurple(dynamic msg){
   if (kDebugMode) {
     print("\x1B[35m ${msg} \x1B[0m");
   }
