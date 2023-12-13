@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
 
-
-class TopContext{
-
-  static BuildContext? topContext;
-
-  static void setContext(BuildContext context){
-    topContext = context;
-  }
-
-  static BuildContext? getTopContext() {
-    return topContext;
-  }
-
+/// 用于提供全局的 navigatorContext
+class NavigatorProvider {
+  static GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 }

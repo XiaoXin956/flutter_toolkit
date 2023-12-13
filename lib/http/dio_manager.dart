@@ -1,6 +1,8 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_toolkit/base/top_context.dart';
 
 import '../utils/print_utils.dart';
 
@@ -167,6 +169,17 @@ class PrintInterceptor extends InterceptorsWrapper {
       printRed('''
       打印拦截器 异常数据：$err
       ''');
+    }
+    Response? response = err.response;
+    if(response!=null && response.statusCode==401){
+      // 跳转到登录页面
+      BuildContext? buildContext = NavigatorProvider.navigatorKey.currentContext;
+      if(buildContext!=null){
+        // TODO 删除本地数据
+        NavigatorProvider.navigatorKey.currentState?.pushNamedAndRemoveUntil("/login", (route) => false);
+        // TODO 就是操作
+        return;
+      }
     }
     return handler.next(err);
   }

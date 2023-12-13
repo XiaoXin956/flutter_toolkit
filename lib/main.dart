@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_toolkit/base/top_context.dart';
+import 'package:flutter_toolkit/ble/blue_list_page.dart';
 import 'package:flutter_toolkit/blocs/language/language_bloc.dart';
 import 'package:flutter_toolkit/blocs/language/language_event.dart';
 import 'package:flutter_toolkit/blocs/language/language_state.dart';
@@ -28,16 +29,18 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+          navigatorKey: NavigatorProvider.navigatorKey,
           title: 'Flutter toolkit',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: BlocBuilder<LanguageBloc, LanguageState>(
-            builder: (BuildContext context, LanguageState state) {
-              return HomePage(title: 'Flutter toolkit');
-            },
-          ),
+          home: BlueListPage(),
+          // home: BlocBuilder<LanguageBloc, LanguageState>(
+          //   builder: (BuildContext context, LanguageState state) {
+          //     return HomePage(title: 'Flutter toolkit');
+          //   },
+          // ),
           localizationsDelegates: const [
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
@@ -66,8 +69,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-    TopContext.setContext(context);
 
     return Scaffold(
       appBar: AppBar(
