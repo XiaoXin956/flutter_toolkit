@@ -25,10 +25,6 @@ dependencies:
   flutter_blue_plus: ^1.30.3
   cupertino_icons: ^1.0.6
 
-  hive:
-  video_player:
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
