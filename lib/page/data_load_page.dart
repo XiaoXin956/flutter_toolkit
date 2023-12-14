@@ -45,8 +45,7 @@ class DataLoadPage extends StatelessWidget {
               showSnackBar(msg: "加载异常");
               _easyRefreshController?.finishRefresh();
               _easyRefreshController?.finishLoad();
-            });
-          }
+            });          }
 
           return Scaffold(
             body: Container(

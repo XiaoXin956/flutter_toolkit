@@ -7,6 +7,7 @@ import 'package:flutter_toolkit/blocs/language/language_bloc.dart';
 import 'package:flutter_toolkit/blocs/language/language_event.dart';
 import 'package:flutter_toolkit/blocs/language/language_state.dart';
 import 'package:flutter_toolkit/generated/l10n.dart';
+import 'package:flutter_toolkit/page/chat_page.dart';
 import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
 import 'package:flutter_toolkit/page/details_page.dart';
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: BlueListPage(),
+          home: HomePage(title: '',),
+          // home: BlueListPage(),
           // home: BlocBuilder<LanguageBloc, LanguageState>(
           //   builder: (BuildContext context, LanguageState state) {
           //     return HomePage(title: 'Flutter toolkit');
