@@ -11,6 +11,7 @@ import 'package:flutter_toolkit/page/chat_page.dart';
 import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
 import 'package:flutter_toolkit/page/details_page.dart';
+import 'package:flutter_toolkit/page/graphic_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 
 void main() {
@@ -25,8 +26,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (BuildContext context) =>
-                LanguageBloc()..add(LanguageGetTypeEvent()),
+            create: (BuildContext context) => LanguageBloc()..add(LanguageGetTypeEvent()),
           ),
         ],
         child: MaterialApp(
@@ -60,17 +60,13 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  void _incrementCounter() {}
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -80,8 +76,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             TextButton(onPressed: () {
               context.read<LanguageBloc>().add(LanguageGetTypeEvent());
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                 return LanguagePage();
               }));
             }, child: BlocBuilder<LanguageBloc, LanguageState>(
@@ -89,57 +84,56 @@ class _HomePageState extends State<HomePage> {
                 return Text("${S.of(context).select_language}");
               },
             )),
-
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                     return CxcHomePage();
-                  }));}, child: Text("cxc首页")),
-
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
+                  }));
+                },
+                child: Text("cxc首页")),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                     return DataLoadPage();
-                  }));}, child: Text("数据加载")),
+                  }));
+                },
+                child: Text("数据加载")),
 
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                    return DataLoadPage();
-                  }));}, child: Text("数据加载")),
+            // 语言选择
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                    return LanguagePage();
+                  }));
+                },
+                child: Text("语言选择")),
 
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                    return DataLoadPage();
-                  }));}, child: Text("数据加载")),
+            // 语言选择
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                    return BlueListPage();
+                  }));
+                },
+                child: Text("Ble")),
 
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                    return DataLoadPage();
-                  }));}, child: Text("数据加载")),
 
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                    return DataLoadPage();
-                  }));}, child: Text("数据加载")),
+            // 图表
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                    return GraphicPage();
+                  }));
+                },
+                child: Text("Graphic")),
 
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                    return DataLoadPage();
-                  }));}, child: Text("数据加载")),
+
+
+
 
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
