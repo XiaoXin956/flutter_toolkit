@@ -7,11 +7,9 @@ import 'package:flutter_toolkit/blocs/language/language_bloc.dart';
 import 'package:flutter_toolkit/blocs/language/language_event.dart';
 import 'package:flutter_toolkit/blocs/language/language_state.dart';
 import 'package:flutter_toolkit/generated/l10n.dart';
-import 'package:flutter_toolkit/page/chat_page.dart';
+import 'package:flutter_toolkit/page/animation_page.dart';
 import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
-import 'package:flutter_toolkit/page/details_page.dart';
-import 'package:flutter_toolkit/page/graphic_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 
 void main() {
@@ -117,16 +115,22 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: Text("Ble")),
 
+            // 动画
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                    return AnimationPage();
+                  }));
+                },
+                child: Text("Ble")),
+
 
             // 图表
             TextButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                    return GraphicPage();
-                  }));
+
                 },
                 child: Text("Graphic")),
-
 
 
 
