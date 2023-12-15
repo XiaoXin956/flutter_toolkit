@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: HomePage(title: '',),
+          home: HomePage(),
           // home: BlueListPage(),
           // home: BlocBuilder<LanguageBloc, LanguageState>(
           //   builder: (BuildContext context, LanguageState state) {
@@ -58,9 +58,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
+  const HomePage({super.key});
 
-  final String title;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -75,11 +74,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Wrap(
           children: <Widget>[
             TextButton(onPressed: () {
               context.read<LanguageBloc>().add(LanguageGetTypeEvent());
@@ -98,6 +95,36 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (BuildContext context) {
                     return CxcHomePage();
                   }));}, child: Text("cxc首页")),
+
+            TextButton(onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return DataLoadPage();
+                  }));}, child: Text("数据加载")),
+
+            TextButton(onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return DataLoadPage();
+                  }));}, child: Text("数据加载")),
+
+            TextButton(onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return DataLoadPage();
+                  }));}, child: Text("数据加载")),
+
+            TextButton(onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return DataLoadPage();
+                  }));}, child: Text("数据加载")),
+
+            TextButton(onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return DataLoadPage();
+                  }));}, child: Text("数据加载")),
 
             TextButton(onPressed: (){
               Navigator.push(context,

@@ -27,6 +27,7 @@ dependencies:
 
   hive:
   video_player:
+  graphic: ^2.2.1
 
 
 dev_dependencies:
