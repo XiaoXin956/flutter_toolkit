@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_toolkit/blocs/data_loading/data_load_bloc.dart';
 import 'package:flutter_toolkit/blocs/data_loading/data_load_event.dart';
 import 'package:flutter_toolkit/blocs/data_loading/data_load_state.dart';
-import 'package:flutter_toolkit/widgets/snack_bar_utils.dart';
+import 'package:flutter_toolkit/views/snack_bar_utils.dart';
 
 class DataLoadPage extends StatelessWidget {
   List<dynamic> data = [];

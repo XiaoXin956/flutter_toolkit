@@ -27,6 +27,8 @@ dependencies:
 
   hive:
   video_player:
+# 评分控件
+  flutter_rating_bar: ^4.0.1
 
 
 dev_dependencies:

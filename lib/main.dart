@@ -7,6 +7,8 @@ import 'package:flutter_toolkit/blocs/language/language_bloc.dart';
 import 'package:flutter_toolkit/blocs/language/language_event.dart';
 import 'package:flutter_toolkit/blocs/language/language_state.dart';
 import 'package:flutter_toolkit/generated/l10n.dart';
+import 'package:flutter_toolkit/navigations/news_route.dart';
+import 'package:flutter_toolkit/navigations/route.dart';
 import 'package:flutter_toolkit/page/chat_page.dart';
 import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
@@ -14,6 +16,11 @@ import 'package:flutter_toolkit/page/details_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 
 void main() {
+  
+  // 初始化页面路由
+  MainRouter().initRoute([NewsRoute().routes]);
+  
+  
   runApp(const MyApp());
 }
 
@@ -30,7 +37,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          navigatorKey: NavigatorProvider.navigatorKey,
+          navigatorKey: MainRouter().navigatorKey,
           title: 'Flutter toolkit',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
