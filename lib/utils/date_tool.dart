@@ -41,7 +41,7 @@ class DateTool {
     return "${currentTime.year}-${month}-${day} 23:59:59";
   }
 
-  /// 时间戳
+  // 时间戳
   static String timestamp() {
     DateTime currentTime = DateTime.now();
     return "${currentTime.microsecondsSinceEpoch}";
@@ -57,7 +57,7 @@ class DateTool {
   }
 
   // 生成时间日期数据
-  static List<DateBean> getCompleteData({String? startTime = "", String? endTime = "", int apartDay = 40}) {
+  static List<DateBean> getCompleteData({int defaultWeek = 7,String? startTime = "", String? endTime = "", int apartDay = 140}) {
     List<DateBean> dateData = [];
     DateTime startDate;
     if (startTime != "") {
@@ -86,10 +86,10 @@ class DateTool {
       dateMonthBean.month = (startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}";
       dateMonthBean.day = (startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}";
       dateMonthBean.itemType = DateType.month;
-      dateMonthBean.itemState = DateStatus.normal;
+      dateMonthBean.itemState = DateStatus.disabled;
       dateMonthBean.dateTime = startDate;
       dateMonthBean.year = startDate.year.toString();
-      dateMonthBean.show = "${startDate.year.toString()}年";
+      dateMonthBean.show = "${startDate.year.toString()}";
       dateData.add(dateMonthBean);
       // 月份数据
       DateBean dateMonthDayBean = DateBean();
@@ -98,10 +98,10 @@ class DateTool {
       dateMonthDayBean.month = (startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}";
       dateMonthDayBean.day = (startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}";
       dateMonthDayBean.itemType = DateType.month;
-      dateMonthDayBean.itemState = DateStatus.normal;
+      dateMonthDayBean.itemState = DateStatus.disabled;
       dateMonthDayBean.dateTime = startDate;
       dateMonthDayBean.year = startDate.year.toString();
-      dateMonthDayBean.show = (startDate.month < 10) ? "0${startDate.month}月" : "${startDate.month.toString()}月";
+      dateMonthDayBean.show = (startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}";
       dateData.add(dateMonthDayBean);
 
       _addDatePlaceholder(dateData, 5, "${startDate.year}${(startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}"}");
@@ -131,8 +131,8 @@ class DateTool {
         DateBean dayDate = DateBean();
         dayDate.id =
             "${startMonthDate.year.toString()}${(startMonthDate.month < 10) ? "0${startMonthDate.month}" : "${startMonthDate.month.toString()}"}${(startMonthDate.day < 10) ? "0${startMonthDate.day}" : "${startMonthDate.day.toString()}"}";
-        dayDate.day = "${startMonthDate.day > 10 ? "0${startMonthDate.day}" : startMonthDate.day}";
-        dayDate.month = "${startMonthDate.month > 10 ? "0${startMonthDate.month}" : startMonthDate.month}";
+        dayDate.day = "${startMonthDate.day < 10 ? "0${startMonthDate.day}" : startMonthDate.day}";
+        dayDate.month = "${startMonthDate.month < 10 ? "0${startMonthDate.month}" : startMonthDate.month}";
         dayDate.year = startMonthDate.year.toString();
         dayDate.dateTime = startMonthDate;
         dayDate.itemState = DateStatus.normal;
@@ -144,7 +144,7 @@ class DateTool {
         DateTime nextDay = DateTime(startMonthDate.year, startMonthDate.month, startMonthDate.day + 1);
         if (nextDay.month != startMonthDate.month) {
           weekday = startMonthDate.weekday;
-          _lastDatePlaceholder(dateData, weekday, "${startMonthDate.month > 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
+          _lastDatePlaceholder(dateData, weekday, "${startMonthDate.month < 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
         }
         startMonthDate = DateTime(startMonthDate.year, startMonthDate.month, startMonthDate.day).add(Duration(days: 1));
       }
