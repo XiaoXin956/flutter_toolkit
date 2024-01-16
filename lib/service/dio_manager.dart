@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,27 +13,27 @@ int connectTimeout = 60;
 
 class DioManager {
 
-  static DioManager? _instance;
-
-  static Dio? _dio;
-
+  final Dio? _dio;
   BaseOptions? options;
 
-  static DioManager getInstant() {
-    _instance ??= DioManager();
-    return _instance!;
-  }
+  static DioManager? _instance;
 
-  DioManager() {
-    options = BaseOptions(
-      baseUrl: baseUrl,
-      responseType: responseType,
-      receiveTimeout: Duration(seconds: receiveTimeout),
-      sendTimeout: Duration(seconds: sendTimeout),
-      connectTimeout: Duration(seconds: connectTimeout),
-    );
-    _dio = Dio(options);
-    _dio?.interceptors.add(PrintInterceptor());
+  DioManager._(this._dio);
+
+  factory DioManager() {
+    if (_instance == null) {
+      _instance ??= DioManager._(Dio());
+      _instance?._dio?.options = BaseOptions(
+        baseUrl: baseUrl,
+        responseType: responseType,
+        receiveTimeout: Duration(seconds: receiveTimeout),
+        sendTimeout: Duration(seconds: sendTimeout),
+        connectTimeout: Duration(seconds: connectTimeout),
+      );
+      _instance?._dio?.interceptors.add(PrintInterceptor());
+    }
+
+    return _instance!;
   }
 
   /// 添加拦截器
@@ -137,7 +136,8 @@ class DioManager {
 
   /// 清除
   void clear() {
-    _dio = null;
+    _dio?.close();
+    _instance = null;
   }
 }
 
@@ -145,20 +145,15 @@ class PrintInterceptor extends InterceptorsWrapper {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (kDebugMode) {
-      printRed('''
-      打印拦截器 请求地址：${options.uri} \n 方法：${options.method} \n 头部：${options.headers} \n 参数：${options.data}
-      ''');
+      printRed('''打印拦截器 请求地址：${options.uri} \n 方法：${options.method} \n 头部：${options.headers} \n 参数：${options.data}''');
     }
     return handler.next(options);
   }
 
   @override
-  void onResponse(
-      Response<dynamic> response, ResponseInterceptorHandler handler) {
+  void onResponse(Response<dynamic> response, ResponseInterceptorHandler handler) {
     if (kDebugMode) {
-      printRed('''
-      打印拦截器 响应数据：状态Code：${response.statusCode}  状态数据：${response.statusMessage} \n 头部 ${response.headers} \n 数据：${response.data}
-      ''');
+      printRed('''打印拦截器 响应数据：状态Code：${response.statusCode}  状态数据：${response.statusMessage} \n 头部 ${response.headers} \n 数据：${response.data}''');
     }
     return handler.next(response);
   }
@@ -166,15 +161,13 @@ class PrintInterceptor extends InterceptorsWrapper {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (kDebugMode) {
-      printRed('''
-      打印拦截器 异常数据：$err
-      ''');
+      printRed('''打印拦截器 异常数据：$err''');
     }
     Response? response = err.response;
-    if(response!=null && response.statusCode==401){
+    if (response != null && response.statusCode == 401) {
       // 跳转到登录页面
       BuildContext? buildContext = NavigatorProvider.navigatorKey.currentContext;
-      if(buildContext!=null){
+      if (buildContext != null) {
         // TODO 删除本地数据
         NavigatorProvider.navigatorKey.currentState?.pushNamedAndRemoveUntil("/login", (route) => false);
         // TODO 就是操作

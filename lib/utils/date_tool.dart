@@ -82,29 +82,29 @@ class DateTool {
       // 月份数据
       DateBean dateMonthBean = DateBean();
       dateMonthBean.id =
-          "${startDate.year.toString()}${(startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}"}${(startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}"}";
-      dateMonthBean.month = (startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}";
-      dateMonthBean.day = (startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}";
+          "${startDate.year.toString()}${(startDate.month < 10) ? "0${startDate.month}" : startDate.month.toString()}${(startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}"}";
+      dateMonthBean.month = (startDate.month < 10) ? "0${startDate.month}" : startDate.month.toString();
+      dateMonthBean.day = (startDate.day < 10) ? "0${startDate.day}" : startDate.day.toString();
       dateMonthBean.itemType = DateType.month;
       dateMonthBean.itemState = DateStatus.disabled;
       dateMonthBean.dateTime = startDate;
       dateMonthBean.year = startDate.year.toString();
-      dateMonthBean.show = "${startDate.year.toString()}";
+      dateMonthBean.show = startDate.year.toString();
       dateData.add(dateMonthBean);
       // 月份数据
       DateBean dateMonthDayBean = DateBean();
       dateMonthBean.id =
-          "${startDate.year.toString()}${(startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}"}${(startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}"}";
-      dateMonthDayBean.month = (startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}";
-      dateMonthDayBean.day = (startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}";
+          "${startDate.year.toString()}${(startDate.month < 10) ? "0${startDate.month}" : startDate.month.toString()}${(startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}"}";
+      dateMonthDayBean.month = (startDate.month < 10) ? "0${startDate.month}" : startDate.month.toString();
+      dateMonthDayBean.day = (startDate.day < 10) ? "0${startDate.day}" : startDate.day.toString();
       dateMonthDayBean.itemType = DateType.month;
       dateMonthDayBean.itemState = DateStatus.disabled;
       dateMonthDayBean.dateTime = startDate;
       dateMonthDayBean.year = startDate.year.toString();
-      dateMonthDayBean.show = (startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}";
+      dateMonthDayBean.show = (startDate.month < 10) ? "0${startDate.month}" : startDate.month.toString();
       dateData.add(dateMonthDayBean);
 
-      _addDatePlaceholder(dateData, 5, "${startDate.year}${(startDate.month < 10) ? "0${startDate.month}" : "${startDate.month.toString()}"}");
+      _addDatePlaceholder(dateData, 5, "${startDate.year}${(startDate.month < 10) ? "0${startDate.month}" : startDate.month.toString()}");
 
       DateTime startMonthDate = startDate; // 当月的开始数据
 
@@ -130,16 +130,16 @@ class DateTool {
         }
         DateBean dayDate = DateBean();
         dayDate.id =
-            "${startMonthDate.year.toString()}${(startMonthDate.month < 10) ? "0${startMonthDate.month}" : "${startMonthDate.month.toString()}"}${(startMonthDate.day < 10) ? "0${startMonthDate.day}" : "${startMonthDate.day.toString()}"}";
+            "${startMonthDate.year.toString()}${(startMonthDate.month < 10) ? "0${startMonthDate.month}" : startMonthDate.month.toString()}${(startMonthDate.day < 10) ? "0${startMonthDate.day}" : "${startMonthDate.day.toString()}"}";
         dayDate.day = "${startMonthDate.day < 10 ? "0${startMonthDate.day}" : startMonthDate.day}";
         dayDate.month = "${startMonthDate.month < 10 ? "0${startMonthDate.month}" : startMonthDate.month}";
         dayDate.year = startMonthDate.year.toString();
         dayDate.dateTime = startMonthDate;
         dayDate.itemState = DateStatus.normal;
         dayDate.itemType = DateType.day;
-        dayDate.show = (startDate.day < 10) ? "0${startDate.day}" : "${startDate.day.toString()}";
+        dayDate.show = (startDate.day < 10) ? "0${startDate.day}" : startDate.day.toString();
         dateData.add(dayDate);
-        printRed("今天是周 ${weekday}   开始日期 ${startMonthDate}    当月结束日期${endMonthDate}");
+        printRed("今天是周 $weekday   开始日期 $startMonthDate    当月结束日期$endMonthDate");
         // 判断是否为当月的最后一天
         DateTime nextDay = DateTime(startMonthDate.year, startMonthDate.month, startMonthDate.day + 1);
         if (nextDay.month != startMonthDate.month) {
@@ -158,25 +158,25 @@ class DateTool {
   static void _firstDatePlaceholder(List<DateBean> dateBeans, int weekday, String monthStr) {
     switch (weekday) {
       case 1:
-        _addDatePlaceholder(dateBeans, 1, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 1, monthStr);
         break;
       case 2:
-        _addDatePlaceholder(dateBeans, 2, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 2, monthStr);
         break;
       case 3:
-        _addDatePlaceholder(dateBeans, 3, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 3, monthStr);
         break;
       case 4:
-        _addDatePlaceholder(dateBeans, 4, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 4, monthStr);
         break;
       case 5:
-        _addDatePlaceholder(dateBeans, 5, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 5, monthStr);
         break;
       case 6:
-        _addDatePlaceholder(dateBeans, 6, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 6, monthStr);
         break;
       case 7:
-        _addDatePlaceholder(dateBeans, 0, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 0, monthStr);
         break;
     }
   }
@@ -184,35 +184,35 @@ class DateTool {
   static void _lastDatePlaceholder(List<DateBean> dateBeans, int weekday, String monthStr) {
     switch (weekday) {
       case 1:
-        _addDatePlaceholder(dateBeans, 5, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 5, monthStr);
         break;
       case 2:
-        _addDatePlaceholder(dateBeans, 4, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 4, monthStr);
         break;
       case 3:
-        _addDatePlaceholder(dateBeans, 3, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 3, monthStr);
         break;
       case 4:
-        _addDatePlaceholder(dateBeans, 2, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 2, monthStr);
         break;
       case 5:
-        _addDatePlaceholder(dateBeans, 1, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 1, monthStr);
         break;
       case 6:
-        _addDatePlaceholder(dateBeans, 0, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 0, monthStr);
         break;
       case 7:
-        _addDatePlaceholder(dateBeans, 6, "${monthStr}");
+        _addDatePlaceholder(dateBeans, 6, monthStr);
         break;
     }
   }
 
   static void _addDatePlaceholder(List<DateBean> dateBeans, int count, String monthStr) {
-    printWhite("占位 ${count} 个");
+    printWhite("占位 $count 个");
     for (int i = 0; i < count; i++) {
       DateBean dateBean = DateBean();
-      dateBean.id = "${monthStr}${i}";
-      dateBean.month = "${monthStr}";
+      dateBean.id = "$monthStr$i";
+      dateBean.month = monthStr;
       dateBean.itemState = DateStatus.disabled; // 空白处禁用
       dateBeans.add(dateBean);
     }
