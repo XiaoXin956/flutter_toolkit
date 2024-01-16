@@ -19,10 +19,6 @@ class _GoogleLoginState extends State<GoogleLogin> {
   }
 
 
-  _login(){
-
-
-  }
 
 
 }

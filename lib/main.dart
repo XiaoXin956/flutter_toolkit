@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_toolkit/base/top_context.dart';
-import 'package:flutter_toolkit/ble/blue_list_page.dart';
 import 'package:flutter_toolkit/blocs/language/language_bloc.dart';
 import 'package:flutter_toolkit/blocs/language/language_event.dart';
 import 'package:flutter_toolkit/blocs/language/language_state.dart';
 import 'package:flutter_toolkit/generated/l10n.dart';
 import 'package:flutter_toolkit/navigations/news_route.dart';
 import 'package:flutter_toolkit/navigations/route.dart';
-import 'package:flutter_toolkit/page/chat_page.dart';
 import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
-import 'package:flutter_toolkit/page/details_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 
 void main() {

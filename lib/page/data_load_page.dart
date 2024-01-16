@@ -6,14 +6,21 @@ import 'package:flutter_toolkit/blocs/data_loading/data_load_event.dart';
 import 'package:flutter_toolkit/blocs/data_loading/data_load_state.dart';
 import 'package:flutter_toolkit/views/snack_bar_utils.dart';
 
-class DataLoadPage extends StatelessWidget {
+class DataLoadPage extends StatefulWidget {
+
+  const DataLoadPage({super.key});
+
+  @override
+  State<DataLoadPage> createState() => _DataLoadPageState();
+}
+
+class _DataLoadPageState extends State<DataLoadPage> {
   List<dynamic> data = [];
-  EasyRefreshController? _easyRefreshController = EasyRefreshController(
+
+  final EasyRefreshController _easyRefreshController = EasyRefreshController(
     controlFinishRefresh: true,
     controlFinishLoad: true,
   );
-
-  DataLoadPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,21 +37,21 @@ class DataLoadPage extends StatelessWidget {
           } else if (state is DataLoadLoadingState) {
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
               // 进行加载
-              _easyRefreshController?.callRefresh();
+              _easyRefreshController.callRefresh();
             });
           } else if (state is DataLoadSuccessState) {
             // 进行加载
             data.addAll(state.dataSuccess);
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              _easyRefreshController?.finishRefresh();
-              _easyRefreshController?.finishLoad();
+              _easyRefreshController.finishRefresh();
+              _easyRefreshController.finishLoad();
             });
           } else if (state is DataLoadFailState) {
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
               // 进行加载
               showSnackBar(msg: "加载异常");
-              _easyRefreshController?.finishRefresh();
-              _easyRefreshController?.finishLoad();
+              _easyRefreshController.finishRefresh();
+              _easyRefreshController.finishLoad();
             });          }
 
           return Scaffold(
