@@ -12,16 +12,13 @@ class CountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CountCubit>(
-      create: (BuildContext context) => CountCubit(),
-      child: BlocBuilder<CountCubit,CountState>(builder: (context,state){
-        countCubit = BlocProvider.of<CountCubit>(context);
-        if(state is CountResultState){
-          result = state.result;
-        }
-        return _buildPage(context);
-      }),
-    );
+    return BlocBuilder<CountCubit,CountState>(builder: (context,state){
+      countCubit = BlocProvider.of<CountCubit>(context);
+      if(state is CountResultState){
+        result = state.result;
+      }
+      return _buildPage(context);
+    });
   }
 
   Widget _buildPage(BuildContext context) {

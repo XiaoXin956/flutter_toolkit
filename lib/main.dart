@@ -11,6 +11,7 @@ import 'package:flutter_toolkit/navigations/route.dart';
 import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
+import 'package:flutter_toolkit/page/state/bloc/count/count_cubit.dart';
 import 'package:flutter_toolkit/page/theme_data_page.dart';
 import 'package:flutter_toolkit/page/video/video_page.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider(create: (BuildContext context) => CountCubit()),
           BlocProvider(create: (BuildContext context) => RootCubit()),
           BlocProvider(create: (BuildContext context) => LanguageBloc()..add(LanguageGetTypeEvent())),
         ],
