@@ -13,14 +13,24 @@ import 'package:flutter_toolkit/page/data_load_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 import 'package:flutter_toolkit/page/theme_data_page.dart';
 import 'package:flutter_toolkit/page/video/video_page.dart';
+import 'package:provider/provider.dart';
+
+import 'page/state/provider/count_provider.dart';
+import 'page/state/state_all_page.dart';
 
 void main() {
-  
   // 初始化页面路由
   MainRouter().initRoute([NewsRoute().routes]);
-  
-  
-  runApp(MyApp());
+
+  // provider
+  MultiProvider providers = MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => CountProvider()),
+    ],
+    child: MyApp(),
+  );
+
+  runApp(providers);
 }
 
 class MyApp extends StatelessWidget {
@@ -35,20 +45,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider( create: (BuildContext context) =>RootCubit()),
-
-          BlocProvider( create: (BuildContext context) =>LanguageBloc()..add(LanguageGetTypeEvent())),
+          BlocProvider(create: (BuildContext context) => RootCubit()),
+          BlocProvider(create: (BuildContext context) => LanguageBloc()..add(LanguageGetTypeEvent())),
         ],
-        child: BlocBuilder<RootCubit,RootState>(
-          builder: (context,state){
-            if(state is RootChangeThemeDataState){
+        child: BlocBuilder<RootCubit, RootState>(
+          builder: (context, state) {
+            if (state is RootChangeThemeDataState) {
               themeData = state.themeData;
             }
             return MaterialApp(
               navigatorKey: MainRouter().navigatorKey,
               title: 'Flutter toolkit',
               theme: themeData,
-              home: HomePage(title: '',),
+              home: HomePage(
+                title: '',
+              ),
               localizationsDelegates: const [
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
@@ -79,7 +90,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -91,8 +101,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             TextButton(onPressed: () {
               context.read<LanguageBloc>().add(LanguageGetTypeEvent());
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                 return LanguagePage();
               }));
             }, child: BlocBuilder<LanguageBloc, LanguageState>(
@@ -100,29 +109,41 @@ class _HomePageState extends State<HomePage> {
                 return Text("${S.of(context).select_language}");
               },
             )),
-
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                     return CxcHomePage();
-                  }));}, child: Text("cxc首页")),
-
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
+                  }));
+                },
+                child: Text("cxc首页")),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                     return DataLoadPage();
-                  }));}, child: Text("数据加载")),
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
+                  }));
+                },
+                child: Text("数据加载")),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                     return ThemeDataPage();
-                  }));}, child: Text("主题修改")),
-            TextButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
+                  }));
+                },
+                child: Text("主题修改")),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                     return VideoPage();
-                  }));}, child: Text("视频播放")),
-
+                  }));
+                },
+                child: Text("视频播放")),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                    return StateAllPage();
+                  }));
+                },
+                child: Text("状态管理")),
           ],
         ),
       ),
