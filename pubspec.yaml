@@ -27,7 +27,7 @@ dependencies:
 
   hive:
   video_player:
-  fl_chart: ^0.65.0
+  fl_chart:
   web_socket_channel: ^2.4.0
 # 评分控件
   flutter_rating_bar: ^4.0.1

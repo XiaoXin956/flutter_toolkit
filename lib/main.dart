@@ -12,6 +12,7 @@ import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 import 'package:flutter_toolkit/page/theme_data_page.dart';
+import 'package:flutter_toolkit/page/video/video_page.dart';
 
 void main() {
   
@@ -116,6 +117,11 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (BuildContext context) {
                     return ThemeDataPage();
                   }));}, child: Text("主题修改")),
+            TextButton(onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return VideoPage();
+                  }));}, child: Text("视频播放")),
 
           ],
         ),
