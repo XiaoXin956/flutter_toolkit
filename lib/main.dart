@@ -36,9 +36,14 @@ void main() {
   runApp(providers);
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   ThemeData themeData = ThemeData(
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
     useMaterial3: true,
@@ -74,6 +79,7 @@ class MyApp extends StatelessWidget {
                 Locale("zh"),
                 Locale("en"),
               ],
+              // onGenerateRoute: ,
             );
           },
         ));
