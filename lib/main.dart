@@ -11,11 +11,13 @@ import 'package:flutter_toolkit/navigations/route.dart';
 import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
+import 'package:flutter_toolkit/page/refresh/pull_refresh_page.dart';
 import 'package:flutter_toolkit/page/state/bloc/count/count_cubit.dart';
 import 'package:flutter_toolkit/page/theme_data_page.dart';
 import 'package:flutter_toolkit/page/video/video_page.dart';
 import 'package:provider/provider.dart';
 
+import 'page/channel/channel_page.dart';
 import 'page/state/provider/count_provider.dart';
 import 'page/state/state_all_page.dart';
 
@@ -146,6 +148,26 @@ class _HomePageState extends State<HomePage> {
                   }));
                 },
                 child: Text("状态管理")),
+
+            Row(
+              children: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                        return ChannelPage();
+                      }));
+                    },
+                    child: Text("原生 method channel")),
+              ],
+            ),
+
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                    return PullRefreshPage();
+                  }));
+                },
+                child: Text("页面刷新")),
           ],
         ),
       ),
