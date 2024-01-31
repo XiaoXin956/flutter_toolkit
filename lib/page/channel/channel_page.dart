@@ -96,4 +96,14 @@ class _ChannelPageState extends State<ChannelPage> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+
+    eventChannelSubscription?.cancel();
+    eventChannelSubscription = null;
+
+    super.dispose();
+  }
+
 }

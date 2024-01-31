@@ -40,7 +40,7 @@ class MainActivity : FlutterActivity() {
                 basicBool = true;
                 Thread {
                     while (basicBool) {
-                        sleep(2000)
+                        sleep(100)
                         runOnUiThread {
                             // 发送消息到flutter
                             basicMessageChannel.send("使用 basicchannel 的send 方法发送的数据，原生发送的消息basic  ${Random().nextDouble()}")
