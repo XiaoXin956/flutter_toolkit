@@ -5,6 +5,7 @@ import 'package:flutter_toolkit/blocs/language/language_bloc.dart';
 import 'package:flutter_toolkit/blocs/language/language_event.dart';
 import 'package:flutter_toolkit/blocs/language/language_state.dart';
 import 'package:flutter_toolkit/blocs/root_cubit.dart';
+import 'package:flutter_toolkit/ex/google/google_login.dart';
 import 'package:flutter_toolkit/generated/l10n.dart';
 import 'package:flutter_toolkit/navigations/news_route.dart';
 import 'package:flutter_toolkit/navigations/route.dart';
@@ -16,16 +17,23 @@ import 'package:flutter_toolkit/page/rested/all_page.dart';
 import 'package:flutter_toolkit/page/state/bloc/count/count_cubit.dart';
 import 'package:flutter_toolkit/page/theme_data_page.dart';
 import 'package:flutter_toolkit/page/video/video_page.dart';
+import 'package:flutter_toolkit/utils/hive_utils.dart';
 import 'package:provider/provider.dart';
 
 import 'page/channel/channel_page.dart';
 import 'page/rested/rested_page.dart';
 import 'page/state/provider/count_provider.dart';
 import 'page/state/state_all_page.dart';
+import 'page/storage/hive_page.dart';
 
 void main() {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
   // 初始化页面路由
   MainRouter().initRoute([NewsRoute().routes]);
+
+  HiveUtils.initHive();
 
   // provider
   MultiProvider providers = MultiProvider(
@@ -107,8 +115,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: SingleChildScrollView
-        (
+      body: SingleChildScrollView(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -183,8 +190,20 @@ class _HomePageState extends State<HomePage> {
                     }));
                   },
                   child: Text("二级路由")),
-
-
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                      return GoogleLogin();
+                    }));
+                  },
+                  child: Text("谷歌 登錄")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                      return HivePage();
+                    }));
+                  },
+                  child: Text("hive 存储")),
             ],
           ),
         ),
