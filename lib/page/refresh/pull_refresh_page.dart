@@ -17,14 +17,6 @@ class _PullRefreshPageState extends State<PullRefreshPage> {
 
   @override
   void initState() {
-    _scrollController.addListener(() {
-      //
-      // final maxScroll = _scrollController.position.maxScrollExtent;
-      // final currentScroll = _scrollController.offset;
-      //  if(currentScroll >= (maxScroll * 0.9)){
-      //     loadMoreData();
-      //  }
-    });
     super.initState();
   }
 

@@ -12,12 +12,14 @@ import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 import 'package:flutter_toolkit/page/refresh/pull_refresh_page.dart';
+import 'package:flutter_toolkit/page/rested/all_page.dart';
 import 'package:flutter_toolkit/page/state/bloc/count/count_cubit.dart';
 import 'package:flutter_toolkit/page/theme_data_page.dart';
 import 'package:flutter_toolkit/page/video/video_page.dart';
 import 'package:provider/provider.dart';
 
 import 'page/channel/channel_page.dart';
+import 'page/rested/rested_page.dart';
 import 'page/state/provider/count_provider.dart';
 import 'page/state/state_all_page.dart';
 
@@ -105,76 +107,86 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextButton(onPressed: () {
-              context.read<LanguageBloc>().add(LanguageGetTypeEvent());
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                return LanguagePage();
-              }));
-            }, child: BlocBuilder<LanguageBloc, LanguageState>(
-              builder: (BuildContext context, LanguageState state) {
-                return Text("${S.of(context).select_language}");
-              },
-            )),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                    return CxcHomePage();
-                  }));
+      body: SingleChildScrollView
+        (
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextButton(onPressed: () {
+                context.read<LanguageBloc>().add(LanguageGetTypeEvent());
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                  return LanguagePage();
+                }));
+              }, child: BlocBuilder<LanguageBloc, LanguageState>(
+                builder: (BuildContext context, LanguageState state) {
+                  return Text("${S.of(context).select_language}");
                 },
-                child: Text("cxc首页")),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                    return DataLoadPage();
-                  }));
-                },
-                child: Text("数据加载")),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                    return ThemeDataPage();
-                  }));
-                },
-                child: Text("主题修改")),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                    return VideoPage();
-                  }));
-                },
-                child: Text("视频播放")),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                    return StateAllPage();
-                  }));
-                },
-                child: Text("状态管理")),
+              )),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                      return CxcHomePage();
+                    }));
+                  },
+                  child: Text("cxc首页")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                      return DataLoadPage();
+                    }));
+                  },
+                  child: Text("数据加载")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                      return ThemeDataPage();
+                    }));
+                  },
+                  child: Text("主题修改")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                      return VideoPage();
+                    }));
+                  },
+                  child: Text("视频播放")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                      return StateAllPage();
+                    }));
+                  },
+                  child: Text("状态管理")),
+              Row(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                          return ChannelPage();
+                        }));
+                      },
+                      child: Text("原生 method channel")),
+                ],
+              ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                      return PullRefreshPage();
+                    }));
+                  },
+                  child: Text("页面刷新")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                      return RestedPage();
+                    }));
+                  },
+                  child: Text("二级路由")),
 
-            Row(
-              children: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                        return ChannelPage();
-                      }));
-                    },
-                    child: Text("原生 method channel")),
-              ],
-            ),
 
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                    return PullRefreshPage();
-                  }));
-                },
-                child: Text("页面刷新")),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
