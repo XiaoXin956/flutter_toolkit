@@ -13,6 +13,8 @@ class _DatePageState extends State<DatePage> {
   List<DateBean> monthData = [];
   String inputWeekData = "";
 
+  String selectedYear="";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +78,103 @@ class _DatePageState extends State<DatePage> {
                                 child: Center(child: Text("${e.year.toString()} ${e.month.toString()} ${e.day.toString()}")),
                               ))
                           .toList(),
-                    )
+                    ),
+
+              // 日期滚动组件
+
+              Container(
+                height: 200,
+                width: double.maxFinite,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          Text(selectedYear.toString()),
+                          Expanded(child: ListWheelScrollView(
+                            itemExtent: 40,
+                            children: List.generate(100, (index) {
+                              if(selectedYear==index.toString()){
+                                return Container(
+                                    color: Colors.indigo,
+                                    child: Text('${index}'));
+                              }
+                              return Container(
+                                  color: Colors.blueGrey,
+                                  child: Text('${index}'));
+                            }),
+                            onSelectedItemChanged: (index) {
+                              setState(() {
+                                selectedYear = index.toString();
+                              });
+                            },
+                          ),)
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          Text(selectedYear.toString()),
+                          Expanded(child: ListWheelScrollView(
+                            itemExtent: 40,
+                            children: List.generate(100, (index) {
+                              if(selectedYear==index.toString()){
+                                return Container(
+                                    color: Colors.indigo,
+                                    child: Text('${index}'));
+                              }
+                              return Container(
+                                  color: Colors.blueGrey,
+                                  child: Text('${index}'));
+                            }),
+                            onSelectedItemChanged: (index) {
+                              setState(() {
+                                selectedYear = index.toString();
+                              });
+                            },
+                          ),)
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          Text(selectedYear.toString()),
+                          Expanded(child: ListWheelScrollView(
+                            itemExtent: 40,
+                            children: List.generate(100, (index) {
+                              if(selectedYear==index.toString()){
+                                return Container(
+                                    color: Colors.indigo,
+                                    child: Text('${index}'));
+                              }
+                              return Container(
+                                  color: Colors.blueGrey,
+                                  child: Text('${index}'));
+                            }),
+                            onSelectedItemChanged: (index) {
+                              setState(() {
+                                selectedYear = index.toString();
+                              });
+                            },
+                          ),)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              InkWell(onTap: (){
+                DateTool.generateYMD(startTime: "2023-01-25",endTime: "2024-03-25");
+                // DateTool.getCompleteData(startTime: "2023-01-25",endTime: "2024-03-25");
+              },child: Text("生成日期"),),
+
+
             ],
           )
         ],

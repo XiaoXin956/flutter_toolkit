@@ -151,6 +151,55 @@ class DateTool {
     return dateData;
   }
 
+  static List<dynamic> generateYMD({String startTime = "", String endTime = ""}) {
+    List<dynamic> ymdData = [];
+
+    DateTime startDate;
+    if (startTime != "") {
+      startDate = DateTime.parse(startTime.toString());
+    } else {
+      startDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    }
+    DateTime endDate;
+    if (endTime != "") {
+      endDate = DateTime.parse(endTime.toString());
+    } else {
+      endDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    }
+
+    // 年
+    List<dynamic> yearData = [];
+    Map<dynamic,dynamic> yearMap = {};
+    while (startDate.isBefore(endDate)) {
+      yearMap.addAll({"year": "${startDate.year}"});
+      // 获取当前一年的月份数据
+      DateTime currentYearMonth = DateTime(startDate.year + 1, startDate.month, 1);
+      // 判断下当月是否为传入日期的结束日期
+      if(currentYearMonth.isAfter(endDate)){
+        currentYearMonth = endDate;
+      }
+      List<dynamic> monthData = [];
+      while (startDate.isBefore(currentYearMonth)) {
+        // 日数据
+        List<dynamic> dayData = [];
+        DateTime currentDayMonth = DateTime(startDate.year, startDate.month + 1, 1);
+        // 判断下当月是否为传入日期的结束日期
+        if(currentDayMonth.isAfter(endDate)){
+          currentDayMonth = endDate;
+        }
+        while (startDate.isBefore(currentDayMonth)) {
+          dayData.add({"day": startDate.day});
+          startDate = startDate.add(Duration(days: 1));
+        }
+        monthData.add({"month": "${startDate.month}","days": dayData});
+      }
+      yearMap.addAll({"months": monthData});
+      yearData.add(yearMap);
+      ymdData.add(yearData);
+    }
+    return ymdData;
+  }
+
   /// 生成时间日期数据
   static List<DateBean> getCompleteData({int defaultWeek = 7, String? startTime = "", String? endTime = "", int apartDay = 140}) {
     List<DateBean> dateData = [];
@@ -271,6 +320,7 @@ class DateTool {
         break;
     }
   }
+
   static void _lastSundayDatePlaceholder(List<DateBean> dateBeans, int weekday, String monthStr) {
     switch (weekday) {
       case 1:
