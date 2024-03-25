@@ -1,4 +1,28 @@
-import 'package:flutter_toolkit/utils/print_utils.dart';
+import 'package:flutter/foundation.dart';
+
+printRed(dynamic msg) {
+  if (kDebugMode) {
+    print("\x1B[31m ${msg} \x1B[0m");
+  }
+}
+
+printBlue(dynamic msg) {
+  if (kDebugMode) {
+    print("\x1B[34m ${msg} \x1B[0m");
+  }
+}
+
+printWhite(dynamic msg) {
+  if (kDebugMode) {
+    print("\x1B[37m ${msg} \x1B[0m");
+  }
+}
+
+printPurple(dynamic msg) {
+  if (kDebugMode) {
+    print("\x1B[35m ${msg} \x1B[0m");
+  }
+}
 
 class DateTool {
   /// 年月日时分秒
@@ -24,7 +48,7 @@ class DateTool {
   }
 
   /// 当前时间 年月日时分
-  static String getTodayYearMothDayHourMinute() {
+  static String getTodayYMDHM() {
     DateTime currentTime = DateTime.now();
     var month = (currentTime.month.toString().length == 1) ? "0${currentTime.month}" : currentTime.month;
     var day = (currentTime.day.toString().length == 1) ? "0${currentTime.day}" : currentTime.day;
@@ -41,13 +65,13 @@ class DateTool {
     return "${currentTime.year}-${month}-${day} 23:59:59";
   }
 
-  // 时间戳
+  /// 时间戳
   static String timestamp() {
     DateTime currentTime = DateTime.now();
     return "${currentTime.microsecondsSinceEpoch}";
   }
 
-  // 指定时间的多少天前，或者当前的多少天前
+  /// 指定时间的多少天前，或者当前的多少天前
   static String ageDay(String currDateTime, int days) {
     DateTime dateTime = (currDateTime != "") ? DateTime.parse(currDateTime) : DateTime.now();
     DateTime dateResult = DateTime(dateTime.year, dateTime.month, dateTime.day - days, dateTime.hour, dateTime.minute, dateTime.second);
@@ -56,8 +80,79 @@ class DateTool {
     return "${dateResult.year}-$month-$day";
   }
 
-  // 生成时间日期数据
-  static List<DateBean> getCompleteData({int defaultWeek = 7,String? startTime = "", String? endTime = "", int apartDay = 140}) {
+  /// 生成指定日期一周内的数据
+  static List<DateBean> getWeekData({String selectData = ""}) {
+    List<DateBean> dateData = [];
+    DateTime dateTime;
+    int weekday;
+    if (selectData == "") {
+      dateTime = DateTime.now();
+    } else {
+      dateTime = DateTime.parse(selectData.toString());
+    }
+    weekday = dateTime.weekday;
+    dateTime = dateTime.subtract(Duration(days: weekday - 1));
+    for (int i = 0; i < 7; i++) {
+      DateBean dayDate = DateBean();
+      dayDate.id = "${dateTime.year.toString()}${(dateTime.month < 10) ? "0${dateTime.month}" : dateTime.month.toString()}${(dateTime.day < 10) ? "0${dateTime.day}" : "${dateTime.day.toString()}"}";
+      dayDate.day = "${dateTime.day < 10 ? "0${dateTime.day}" : dateTime.day}";
+      dayDate.month = "${dateTime.month < 10 ? "0${dateTime.month}" : dateTime.month}";
+      dayDate.year = dateTime.year.toString();
+      dayDate.dateTime = dateTime;
+      dayDate.itemState = DateStatus.normal;
+      dayDate.itemType = DateType.day;
+      dayDate.show = (dateTime.day < 10) ? "0${dateTime.day}" : dateTime.day.toString();
+      dateData.add(dayDate);
+      dateTime = dateTime.add(Duration(days: 1));
+    }
+    return dateData;
+  }
+
+  /// 生成当前月份的数据
+  static List<DateBean> getMonthData({String selectData = "", int startWeekDay = 1, bool placeholder = false}) {
+    List<DateBean> dateData = [];
+    DateTime dateTime;
+    if (selectData == "") {
+      dateTime = DateTime.now();
+    } else {
+      dateTime = DateTime.parse(selectData.toString());
+    }
+    dateTime = DateTime(dateTime.year, dateTime.month, 1);
+    int days = DateTime(dateTime.year, dateTime.month + 1, 0).day;
+    for (int i = 0; i < days; i++) {
+      if (placeholder) {
+        if (i == 0) {
+          var weekday = dateTime.weekday;
+          if (startWeekDay == 1) {
+            _firstSundayDatePlaceholder(dateData, weekday, "${dateTime.month > 10 ? "0${dateTime.month}" : dateTime.month}");
+          } else if (startWeekDay == 7) {
+            _firstSundayDatePlaceholder(dateData, weekday, "${dateTime.month > 10 ? "0${dateTime.month}" : dateTime.month}");
+          }
+        }
+      }
+      DateBean dayDate = DateBean();
+      dayDate.id = "${dateTime.year.toString()}${(dateTime.month < 10) ? "0${dateTime.month}" : dateTime.month.toString()}${(dateTime.day < 10) ? "0${dateTime.day}" : "${dateTime.day.toString()}"}";
+      dayDate.day = "${dateTime.day < 10 ? "0${dateTime.day}" : dateTime.day}";
+      dayDate.month = "${dateTime.month < 10 ? "0${dateTime.month}" : dateTime.month}";
+      dayDate.year = dateTime.year.toString();
+      dayDate.dateTime = dateTime;
+      dayDate.itemState = DateStatus.normal;
+      dayDate.itemType = DateType.day;
+      dayDate.show = (dateTime.day < 10) ? "0${dateTime.day}" : dateTime.day.toString();
+      dateData.add(dayDate);
+      if (placeholder) {
+        if (i == days - 1) {
+          var weekday = dateTime.weekday;
+          _lastSundayDatePlaceholder(dateData, weekday, "${dateTime.month > 10 ? "0${dateTime.month}" : dateTime.month}");
+        }
+      }
+      dateTime = dateTime.add(const Duration(days: 1));
+    }
+    return dateData;
+  }
+
+  /// 生成时间日期数据
+  static List<DateBean> getCompleteData({int defaultWeek = 7, String? startTime = "", String? endTime = "", int apartDay = 140}) {
     List<DateBean> dateData = [];
     DateTime startDate;
     if (startTime != "") {
@@ -103,11 +198,8 @@ class DateTool {
       dateMonthDayBean.year = startDate.year.toString();
       dateMonthDayBean.show = (startDate.month < 10) ? "0${startDate.month}" : startDate.month.toString();
       dateData.add(dateMonthDayBean);
-
       _addDatePlaceholder(dateData, 5, "${startDate.year}${(startDate.month < 10) ? "0${startDate.month}" : startDate.month.toString()}");
-
       DateTime startMonthDate = startDate; // 当月的开始数据
-
       DateTime endMonthDate = DateTime(startMonthDate.year, startMonthDate.month + 1, 1); // 月尾的结束数据
       // 判断结束时间是否在当月内
       if (startMonthDate.year == endDate.year && startMonthDate.month == endDate.month) {
@@ -120,12 +212,12 @@ class DateTool {
           isFirst = false;
           // 获取时间点
           weekday = startMonthDate.weekday;
-          _firstDatePlaceholder(dateData, weekday, "${startMonthDate.month > 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
+          _firstSundayDatePlaceholder(dateData, weekday, "${startMonthDate.month > 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
         } else {
           // 判断是否为当月1号
           if (startMonthDate.day == 1) {
             weekday = startMonthDate.weekday;
-            _firstDatePlaceholder(dateData, weekday, "${startMonthDate.month > 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
+            _firstSundayDatePlaceholder(dateData, weekday, "${startMonthDate.month > 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
           }
         }
         DateBean dayDate = DateBean();
@@ -144,18 +236,17 @@ class DateTool {
         DateTime nextDay = DateTime(startMonthDate.year, startMonthDate.month, startMonthDate.day + 1);
         if (nextDay.month != startMonthDate.month) {
           weekday = startMonthDate.weekday;
-          _lastDatePlaceholder(dateData, weekday, "${startMonthDate.month < 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
+          _lastSundayDatePlaceholder(dateData, weekday, "${startMonthDate.month < 10 ? "0${startMonthDate.month}" : startMonthDate.month}");
         }
         startMonthDate = DateTime(startMonthDate.year, startMonthDate.month, startMonthDate.day).add(Duration(days: 1));
       }
       startDate = DateTime(startDate.year, startDate.month + 1, 1);
     }
-    // 遍历日的范围
-
     return dateData;
   }
 
-  static void _firstDatePlaceholder(List<DateBean> dateBeans, int weekday, String monthStr) {
+  /// 从周日开始
+  static void _firstSundayDatePlaceholder(List<DateBean> dateBeans, int weekday, String monthStr) {
     switch (weekday) {
       case 1:
         _addDatePlaceholder(dateBeans, 1, monthStr);
@@ -180,8 +271,7 @@ class DateTool {
         break;
     }
   }
-
-  static void _lastDatePlaceholder(List<DateBean> dateBeans, int weekday, String monthStr) {
+  static void _lastSundayDatePlaceholder(List<DateBean> dateBeans, int weekday, String monthStr) {
     switch (weekday) {
       case 1:
         _addDatePlaceholder(dateBeans, 5, monthStr);

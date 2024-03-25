@@ -11,16 +11,19 @@ import 'package:flutter_toolkit/navigations/news_route.dart';
 import 'package:flutter_toolkit/navigations/route.dart';
 import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
+import 'package:flutter_toolkit/page/data_select_page/date_select_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 import 'package:flutter_toolkit/page/refresh/pull_refresh_page.dart';
 import 'package:flutter_toolkit/page/rested/all_page.dart';
 import 'package:flutter_toolkit/page/state/bloc/count/count_cubit.dart';
 import 'package:flutter_toolkit/page/theme_data_page.dart';
 import 'package:flutter_toolkit/page/video/video_page.dart';
+import 'package:flutter_toolkit/utils/date_tool.dart';
 import 'package:flutter_toolkit/utils/hive_utils.dart';
 import 'package:provider/provider.dart';
 
 import 'page/channel/channel_page.dart';
+import 'page/date_view/date_page.dart';
 import 'page/rested/rested_page.dart';
 import 'page/state/provider/count_provider.dart';
 import 'page/state/state_all_page.dart';
@@ -204,6 +207,15 @@ class _HomePageState extends State<HomePage> {
                     }));
                   },
                   child: Text("hive 存储")),
+              TextButton(
+                  onPressed: () {
+
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                      return DatePage();
+                    }));
+                   // List<DateBean> weekData = DateTool.getWeekData(selectData: "2024-03-24");
+                  },
+                  child: Text("日期数据")),
             ],
           ),
         ),

@@ -1,11 +1,11 @@
-# flutter_toolkit
+# Flutter 笔记 
+
 ****
 **flutter bloc**
 
 BlocProvider 提供一个 BloC 实例，在child 的Widget 里面可以使用
 
-```dart in html
- 
+```dart
 // 单个
 BlocProvider(create:(BuildContext context) => XXXBloc(),
   child:Widget();
@@ -68,8 +68,15 @@ BlocSelector<LanguageBloc, LanguageState, String>(
           )
 ```
 
+key
+局部localKey
+ValueKey  对比 值
+ObjectKey  对比 对象 是否为同一个
+UniqueKey  直接生成唯一key
+
+全局
+globalKey
 
 
-
-
+向下传递约束，向上传递尺寸，上层widget 决定下层widget 位置
 
