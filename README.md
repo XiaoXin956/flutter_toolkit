@@ -18,6 +18,12 @@ flutter build apk --debug
 --target=<path>：指定应用程序的入口点。默认情况下，Flutter 会查找 lib/main.dart 文件作为应用程序的入口点。
 --obfuscate --split-debug-info=/<project-name>/<directory>： 开启Dart混淆，并将符号表导出到指定目录
 
+
+--dart-define=API_URL=值
+
+接收使用
+String.fromEnvironment("API_URL",defaultValue: "https://app.watsonerp.com/")
+
 ```
 
 
