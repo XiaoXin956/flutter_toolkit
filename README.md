@@ -19,7 +19,7 @@ flutter build apk --debug
 --obfuscate --split-debug-info=/<project-name>/<directory>： 开启Dart混淆，并将符号表导出到指定目录
 
 
---dart-define=API_URL=值
+--dart-define=API_URL=https://app.watsonerp.com/
 
 接收使用
 String.fromEnvironment("API_URL",defaultValue: "https://app.watsonerp.com/")
