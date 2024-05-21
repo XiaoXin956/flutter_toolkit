@@ -17,12 +17,14 @@ flutter build apk --debug
 --dart-define=<key=value>：定义一个构建变量。这个选项可以用于在构建时传递参数。例如，您可以使用 --dart-define=API_HOST=example.com 来定义一个名为 API_HOST 的构建变量，该变量的值为 example.com。
 --target=<path>：指定应用程序的入口点。默认情况下，Flutter 会查找 lib/main.dart 文件作为应用程序的入口点。
 --obfuscate --split-debug-info=/<project-name>/<directory>： 开启Dart混淆，并将符号表导出到指定目录
+--dart-define=API_URL=https://xxx.xxxxxx.xxx/
 
+flutter build apk --split-per-abi flutter build appbundle --no-sound-null-safety --split-per-abi
 
---dart-define=API_URL=https://app.watsonerp.com/
+flutter build appbundle --release --no-sound-null-safety --split-per-abi
 
 接收使用
-String.fromEnvironment("API_URL",defaultValue: "https://app.watsonerp.com/")
+String.fromEnvironment("API_URL",defaultValue: "https://xxx.xxx.xx/")
 
 ```
 
