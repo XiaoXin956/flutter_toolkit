@@ -1,6 +1,10 @@
 part of 'video_cubit.dart';
 
-@immutable
-abstract class VideoState {}
+sealed class VideoState extends Equatable {
+  const VideoState();
+}
 
-class VideoInitial extends VideoState {}
+final class VideoInitial extends VideoState {
+  @override
+  List<Object> get props => [];
+}

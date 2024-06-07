@@ -5,7 +5,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: '>=3.4.3 <4.0.0'
 
 dependencies:
   flutter:
@@ -21,7 +21,7 @@ dependencies:
   dio: ^5.4.0
   flutter_screenutil: 5.9.0
 #  shared_preferences: ^2.2.0
-  easy_refresh: ^3.3.3+1
+  easy_refresh: ^3.4.0
 
   animated_text_kit:
   flutter_blue_plus: ^1.30.5
@@ -39,8 +39,9 @@ dependencies:
   sign_in_with_apple: ^5.0.0
   http:
   rive:
-  media_kit:
-
+  media_kit: ^1.1.10                             # Primary package.
+  media_kit_video: ^1.2.4                        # For video rendering.
+  media_kit_libs_video: ^1.0.4                   # Native video dependencies.
 
 
 dev_dependencies:

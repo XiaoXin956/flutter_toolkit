@@ -109,7 +109,104 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void _incrementCounter() {}
+
+  late List<Widget> widgets = [
+    TextButton(onPressed: () {
+      context.read<LanguageBloc>().add(LanguageGetTypeEvent());
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+        return LanguagePage();
+      }));
+    }, child: BlocBuilder<LanguageBloc, LanguageState>(
+      builder: (BuildContext context, LanguageState state) {
+        return Text("${S.of(context).select_language}");
+      },
+    )),
+    TextButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return CxcHomePage();
+          }));
+        },
+        child: Text("cxc首页")),
+    TextButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return DataLoadPage();
+          }));
+        },
+        child: Text("数据加载")),
+    TextButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return ThemeDataPage();
+          }));
+        },
+        child: Text("主题修改")),
+    TextButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return VideoPage();
+          }));
+        },
+        child: Text("视频播放")),
+    TextButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return StateAllPage();
+          }));
+        },
+        child: Text("状态管理")),
+    Row(
+      children: [
+        TextButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                return ChannelPage();
+              }));
+            },
+            child: Text("原生 method channel")),
+      ],
+    ),
+    TextButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return PullRefreshPage();
+          }));
+        },
+        child: Text("页面刷新")),
+    TextButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return RestedPage();
+          }));
+        },
+        child: Text("二级路由")),
+    TextButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return GoogleLogin();
+          }));
+        },
+        child: Text("谷歌 登錄")),
+    TextButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return HivePage();
+          }));
+        },
+        child: Text("hive 存储")),
+    TextButton(
+        onPressed: () {
+
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return DatePage();
+          }));
+          // List<DateBean> weekData = DateTool.getWeekData(selectData: "2024-03-24");
+        },
+        child: Text("日期数据")),
+  ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -120,111 +217,12 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextButton(onPressed: () {
-                context.read<LanguageBloc>().add(LanguageGetTypeEvent());
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                  return LanguagePage();
-                }));
-              }, child: BlocBuilder<LanguageBloc, LanguageState>(
-                builder: (BuildContext context, LanguageState state) {
-                  return Text("${S.of(context).select_language}");
-                },
-              )),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                      return CxcHomePage();
-                    }));
-                  },
-                  child: Text("cxc首页")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                      return DataLoadPage();
-                    }));
-                  },
-                  child: Text("数据加载")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                      return ThemeDataPage();
-                    }));
-                  },
-                  child: Text("主题修改")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                      return VideoPage();
-                    }));
-                  },
-                  child: Text("视频播放")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                      return StateAllPage();
-                    }));
-                  },
-                  child: Text("状态管理")),
-              Row(
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                          return ChannelPage();
-                        }));
-                      },
-                      child: Text("原生 method channel")),
-                ],
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                      return PullRefreshPage();
-                    }));
-                  },
-                  child: Text("页面刷新")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                      return RestedPage();
-                    }));
-                  },
-                  child: Text("二级路由")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                      return GoogleLogin();
-                    }));
-                  },
-                  child: Text("谷歌 登錄")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                      return HivePage();
-                    }));
-                  },
-                  child: Text("hive 存储")),
-              TextButton(
-                  onPressed: () {
-
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                      return DatePage();
-                    }));
-                   // List<DateBean> weekData = DateTool.getWeekData(selectData: "2024-03-24");
-                  },
-                  child: Text("日期数据")),
-            ],
+          child: Wrap(
+            spacing: 10,
+            children: widgets.map((e) => e).toList(),
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
