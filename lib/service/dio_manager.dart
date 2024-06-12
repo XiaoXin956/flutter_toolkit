@@ -163,17 +163,15 @@ class PrintInterceptor extends InterceptorsWrapper {
     if (kDebugMode) {
       printRed('''打印拦截器 异常数据：$err''');
     }
-    Response? response = err.response;
-    if (response != null && response.statusCode == 401) {
-      // 跳转到登录页面
-      BuildContext? buildContext = NavigatorProvider.navigatorKey.currentContext;
-      if (buildContext != null) {
-        // TODO 删除本地数据
-        NavigatorProvider.navigatorKey.currentState?.pushNamedAndRemoveUntil("/login", (route) => false);
-        // TODO 就是操作
-        return;
-      }
-    }
+    // Response? response = err.response;
+    // if (response != null && response.statusCode == 401) {
+    //   // 跳转到登录页面
+    //   BuildContext? buildContext = NavigatorProvider.navigatorKey.currentContext;
+    //   if (buildContext != null) {
+    //     NavigatorProvider.navigatorKey.currentState?.pushNamedAndRemoveUntil("/login", (route) => false);
+    //     return;
+    //   }
+    // }
     return handler.next(err);
   }
 }
