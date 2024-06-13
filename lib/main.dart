@@ -19,7 +19,7 @@ import 'package:flutter_toolkit/page/state/bloc/count/count_cubit.dart';
 import 'package:flutter_toolkit/page/theme_data_page.dart';
 import 'package:flutter_toolkit/page/video/video_page.dart';
 import 'package:flutter_toolkit/utils/date_tool.dart';
-import 'package:flutter_toolkit/utils/hive_utils.dart';
+import 'package:flutter_toolkit/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 import 'page/channel/channel_page.dart';

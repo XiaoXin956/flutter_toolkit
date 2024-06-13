@@ -1,6 +1,7 @@
 
+part of 'utils.dart';
 
-import 'package:flutter/foundation.dart';
+
 
 printRed(dynamic msg){
   if (kDebugMode) {

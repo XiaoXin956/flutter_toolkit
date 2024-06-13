@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_toolkit/ble/utils/extra.dart';
-import 'package:flutter_toolkit/utils/string_utils.dart';
+import 'package:flutter_toolkit/utils/utils.dart';
 
 class BuleDetailsPage extends StatefulWidget {
   BluetoothDevice device;
@@ -122,7 +122,7 @@ class _BuleDetailsPageState extends State<BuleDetailsPage> {
                                       // e2.write(StringUtils.contentToHex(content: "来啦"));
                                       // e2.write(StringUtils.contentToIso8859_1(content: "来啦"));
                                       // e2.write(StringUtils.contentToUsAscii(content: "来啦"));
-                                      e2.write(StringUtils.contentToUtf8(content: "来啦"));
+                                      e2.write("来啦".contentToUtf8());
                                     },
                                     child: Text("发送")),
                                 ElevatedButton(onPressed: () {}, child: Text("监听")),

@@ -1,5 +1,4 @@
-
-import 'package:intl/intl.dart';
+part of 'utils.dart';
 
 class CurrencyUtils {
 

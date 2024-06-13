@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/utils/hive_utils.dart';
+
+import '../../utils/utils.dart';
 
 class HivePage extends StatefulWidget {
   const HivePage({super.key});

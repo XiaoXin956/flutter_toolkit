@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/utils/print_utils.dart';
 
 class PullRefreshPage extends StatefulWidget {
   const PullRefreshPage({super.key});

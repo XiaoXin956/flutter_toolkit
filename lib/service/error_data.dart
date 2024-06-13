@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-import '../utils/print_utils.dart';
+import '../utils/utils.dart';
 
 class ErrorData {
   static dynamic analysisError(dynamic error) {

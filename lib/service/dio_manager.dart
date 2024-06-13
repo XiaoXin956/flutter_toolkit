@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/base/top_context.dart';
 
-import '../utils/print_utils.dart';
+import '../utils/utils.dart';
+
 
 String baseUrl = "";
 ResponseType responseType = ResponseType.json;

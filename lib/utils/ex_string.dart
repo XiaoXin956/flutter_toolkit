@@ -1,3 +1,5 @@
+part of 'utils.dart';
+
 extension ExString on String {
 
   // 内容转HEX

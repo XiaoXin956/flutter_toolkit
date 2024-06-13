@@ -1,8 +1,4 @@
-
-
-import 'dart:io';
-
-import 'package:flutter/services.dart';
+part of 'utils.dart';
 
 /// 拆分文件
 Future splitFile(File file,int subFileByteSize) async {

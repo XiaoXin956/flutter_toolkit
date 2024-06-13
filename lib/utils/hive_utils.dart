@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+part of 'utils.dart';
 
 class HiveUtils{
 

@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:flutter_toolkit/utils/print_utils.dart';
+
+import '../utils/utils.dart';
 
 
 typedef OnFind = void Function(DeviceBean device);
