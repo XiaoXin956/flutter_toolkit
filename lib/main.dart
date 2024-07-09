@@ -12,6 +12,7 @@ import 'package:flutter_toolkit/navigations/route.dart';
 import 'package:flutter_toolkit/page/cxc_home_page.dart';
 import 'package:flutter_toolkit/page/data_load_page.dart';
 import 'package:flutter_toolkit/page/data_select_page/date_select_page.dart';
+import 'package:flutter_toolkit/page/isolate/isolate_page.dart';
 import 'package:flutter_toolkit/page/language_page.dart';
 import 'package:flutter_toolkit/page/refresh/pull_refresh_page.dart';
 import 'package:flutter_toolkit/page/rested/all_page.dart';
@@ -204,6 +205,15 @@ class _HomePageState extends State<HomePage> {
           // List<DateBean> weekData = DateTool.getWeekData(selectData: "2024-03-24");
         },
         child: Text("日期数据")),
+    TextButton(
+        onPressed: () {
+
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+            return IsolatePage();
+          }));
+          // List<DateBean> weekData = DateTool.getWeekData(selectData: "2024-03-24");
+        },
+        child: Text("IsolatePage")),
   ];
 
 
